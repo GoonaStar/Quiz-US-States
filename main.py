@@ -18,18 +18,14 @@ while len(list_states_answered) < 50:
     states = pandas.read_csv("50_states.csv")
     states_frame = states.state.to_list()
     if answer_state == "Exit":
-        for state in states_frame:
-            if state not in list_states_answered:
-                list_state_not_answered.append(state)
+        list_state_not_answered = [state for state in states_frame if state not in list_states_answered]
         states_not_answered_dic = {
             "states to review": list_state_not_answered
         }
         states_to_review = pandas.DataFrame(states_not_answered_dic)
         states_to_review.to_csv("states_to_review.csv")
-
-
-
         break
+
     if answer_state in states_frame:
             state_attributes = states[states.state == answer_state]
             state_matched_x = int(state_attributes.x)
